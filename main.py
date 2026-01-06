@@ -13,7 +13,7 @@ def main():
     args = parser.parse_args()
     prompt = args.user_prompt
     messages = [types.Content(role="user", parts=[types.Part(text=args.user_prompt)])]
-
+    
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         raise RuntimeError("Api key not found!")
@@ -26,7 +26,7 @@ def main():
         raise RuntimeError("Response metadata not found.\nApi key potentially not found")
     prompt_tokens = response.usage_metadata.prompt_token_count
     response_tokens = response.usage_metadata.candidates_token_count
-    if args.verbose.action == True:
+    if args.verbose == True:
         print(f"User prompt: {prompt}")
         print(f"Prompt tokens: {prompt_tokens}")
         print(f"Response tokens: {response_tokens}")
