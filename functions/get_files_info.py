@@ -2,13 +2,15 @@ import os
 
 def get_files_info(working_directory, directory="."):
 
+    # fix bug "pkg" is nota directory
+
     working_dir_abs = os.path.abspath("calculator")
     target_dir = os.path.normpath(os.path.join(working_dir_abs, directory))
     valid_target_dir = os.path.commonpath([working_dir_abs, target_dir]) == working_dir_abs
     if valid_target_dir == False:
         # Fix bug where directory content are being printed rather than printing only directory value
-        print(f"Error: Cannot list {directory} as it is outside the permitted working directory")
-    if os.path.isdir(directory) == False:
+        print(f"Error: Cannot list {target_directory} as it is outside the permitted working directory")
+    if os.path.isdir(target_dir) == False:
         return f'Error: "{directory}" is not a directory'
 
     target_dir_data = ""
