@@ -1,6 +1,20 @@
 import os
 import subprocess
 
+schema_get_files_info = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Lists files in a specified directory relative to the working directory, providing file size and directory status",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="Directory path to list files from, relative to the working directory (default is the working directory itself)",
+            ),
+        },
+    ),
+)
+
 def run_python_file(working_directory, file_path, args=None):
             
     working_dir_abs = os.path.abspath("calculator")

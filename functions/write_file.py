@@ -1,5 +1,19 @@
 import os
 
+schema_get_files_info = types.FunctionDeclaration(
+    name="write_file",
+    description="Writes content into a file",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="Writes content into a file",
+            ),
+        },
+    ),
+)
+
 def write_file(working_directory, file_path, content):
         
     working_dir_abs = os.path.abspath("calculator")

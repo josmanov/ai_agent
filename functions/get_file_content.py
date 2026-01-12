@@ -1,6 +1,21 @@
 import os
 import config
 
+schema_get_files_info = types.FunctionDeclaration(
+    name="get_files_content",
+    description="Fetches content from a file",
+    parameters=types.Schema(
+        required=["file_path"]
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="Directory path to list files from, relative to the working directory (default is the working directory itself)",
+            ),
+        },
+    ),
+)
+
 def get_file_content(working_directory, file_path):
     
     working_dir_abs = os.path.abspath("calculator")
