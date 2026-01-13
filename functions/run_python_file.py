@@ -1,17 +1,25 @@
 import os
 import subprocess
 
-schema_get_files_info = types.FunctionDeclaration(
+schema_run_python_file = types.FunctionDeclaration(
     name="run_python_file",
-    description="Lists files in a specified directory relative to the working directory, providing file size and directory status",
+    description="Runs speicifc python file with optional arguments",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
-            "directory": types.Schema(
+            "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="Directory path to list files from, relative to the working directory (default is the working directory itself)",
+                description="file_path of the python file that will run and return the received output",
+            ),
+            "args": types.Schema(
+                type=types.Type.ARRAY,
+                items=types.Schema(
+                    type=types.Type.STRING,
+                ),
+                description="optional arguments to give",
             ),
         },
+        required=["file_path"]
     ),
 )
 

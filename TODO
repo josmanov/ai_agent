@@ -7,7 +7,10 @@
     - Creates new directory in wrong path
 
 **functions/write_file , get_files_content , run_file:**
-[] Update all the new schemas to the corresponding function used.
+[x] Update all the new schemas to the corresponding function used.
     [x] write_file
     [x] get_file_content
-    [] run_python_file
+    [x] run_python_file
+
+[] Update list of availabe functions to include all the declarations
+[] Update system prompt
