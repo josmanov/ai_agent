@@ -1,5 +1,6 @@
 import os
 import subprocess
+from google.genai import types
 
 schema_run_python_file = types.FunctionDeclaration(
     name="run_python_file",

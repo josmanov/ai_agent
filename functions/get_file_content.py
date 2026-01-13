@@ -1,5 +1,6 @@
 import os
 import config
+from google.genai import types
 
 schema_get_file_content = types.FunctionDeclaration(
     name="get_file_content",
