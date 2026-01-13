@@ -14,3 +14,12 @@
 
 [X] Update list of availabe functions to include all the declarations
 [X] Update system prompt
+
+[] Create a function to call the matching function with its arguments
+    [x] Create function_map with all the commands
+    [x] Create shallow copy of function_call
+    [x] From args update the working_directory keys value into "./calculator"
+    [] Pass working dictionary into the callable function
+    [] Assign the result of a function call into a variable. 
+        - The result will always be a string its defined in our callale functions
+    
