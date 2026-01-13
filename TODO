@@ -1,4 +1,3 @@
-
 **functions/get_files_info:**
 [x] fix bug "pkg" is not a directory
 [x] fix directory content being printed
@@ -6,3 +5,9 @@
 **functions/write_file:**
 [x] Bug: Fix file generated in wrong directory.
     - Creates new directory in wrong path
+
+**functions/write_file , get_files_content , run_file:**
+[] Update all the new schemas to the corresponding function used.
+    [x] write_file
+    [x] get_file_content
+    [] run_python_file

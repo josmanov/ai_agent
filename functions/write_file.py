@@ -1,16 +1,19 @@
 import os
 
-schema_get_files_info = types.FunctionDeclaration(
+schema_write_file = types.FunctionDeclaration(
     name="write_file",
     description="Writes content into a file",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
-            "directory": types.Schema(
+            "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="Writes content into a file",
-            ),
+                description="The file path to write the content into"),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="The content to write into the file"),
         },
+        required=["file_path", "content"]
     ),
 )
 
