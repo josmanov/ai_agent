@@ -18,18 +18,18 @@ schema_get_files_info = types.FunctionDeclaration(
 
 def get_files_info(working_directory, directory="."):
 
-    working_dir_abs = os.path.abspath("calculator")
+    working_dir_abs = os.path.abspath(working_directory)
     target_dir = os.path.normpath(os.path.join(working_dir_abs, directory))
     valid_target_dir = os.path.commonpath([working_dir_abs, target_dir]) == working_dir_abs
     if valid_target_dir == False:
         # Fixed directory content being printed
-        print(f'Result for \'{directory}\' directory:')
-        print(f'    Error: Cannot list \"{directory}\" as it is outside the permitted working directory')
+        return(f'Result for \'{directory}\' directory:')
+        return(f'    Error: Cannot list \"{directory}\" as it is outside the permitted working directory')
         return 2
     # fixed wrong variable usage for os.path.isdir function
     if os.path.isdir(target_dir) == False:
-        print(f'Result for \'{directory}\' directory:')
-        print(f'    Error: \'{directory}\' is not a directory')
+        return(f'Result for \'{directory}\' directory:')
+        return(f'    Error: \'{directory}\' is not a directory')
         return 2
 
     target_dir_data = ""
@@ -44,8 +44,8 @@ def get_files_info(working_directory, directory="."):
                 is_dir = os.path.isdir(target_dir + "/" + file)
                 target_dir_data += (f'  - {file}: file_size={file_size} bytes, is_dir={is_dir}\n')
         except Exception as e:
-            print(e)
+            return e
     except:
         return f'Error: Could not fetch data from: {target_dir}'
 
-    print(target_dir_data[:-1])
+    return(target_dir_data[:-1])

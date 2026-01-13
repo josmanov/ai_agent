@@ -6,7 +6,7 @@ from google import genai
 from google.genai import types
 
 from config import *
-from functions.call_function import available_functions
+from functions.call_function import call_function, available_functions
 
 def main():
     load_dotenv()
@@ -44,7 +44,18 @@ def main():
         print(f"Response:\n{response.text}")
     else:
         for function_call in response.function_calls:
-            print(f"Calling function: {function_call.name}({function_call.args})")
+            function_results = []
+            function_call_result = call_function(function_call, args.verbose)
+            if function_call_result.parts == None:
+                raise Exception("Error: .parts list is empty")
+            if function_call_result.parts[0].function_response == None:
+                raise Exception("Error: .parts[0].function_response is None")
+            if function_call_result.parts[0].function_response.response == None:
+                raise Exception("Error: .parts[0].function_response.response is None")
+            function_results.append(function_call_result.parts[0])
+            if args.verbose == True:
+                print(f"-> {function_call_result.parts[0].function_response.response}")
+            
 
 if __name__ == "__main__":
     main()
