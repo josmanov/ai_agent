@@ -22,16 +22,15 @@ def get_file_content(working_directory, file_path):
     target_dir = os.path.normpath(os.path.join(working_dir_abs, file_path))
     valid_target_dir = os.path.commonpath([working_dir_abs, target_dir]) == working_dir_abs
     if valid_target_dir == False:
-        print(f'Error: Cannot read "{file_path}" as it is outside the permitted working directory')
-        return 2
+        return(f'Error: Cannot read "{file_path}" as it is outside the permitted working directory')
+
     if os.path.isfile(target_dir) == False:
-        print(f'Error: File not found or is not a regular file: "{file_path}"')
-        return 2
+        return(f'Error: File not found or is not a regular file: "{file_path}"')
     try:
-        f = open(target_dir)
-        content = f.read(config.MAX_CHARS)
-        if f.read(1):
-            content += f'[...File "{file_path}" truncated at {config.MAX_CHARS} characters]'
-        print(content)
+        with open(target_dir) as f:
+            content = f.read(config.MAX_CHARS)
+            if f.read(1):
+                content += f'[...File "{file_path}" truncated at {config.MAX_CHARS} characters]'
+            return(content)
     except:
         return f'Error: Could not read data from: {target_dir}'

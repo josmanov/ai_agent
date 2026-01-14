@@ -11,12 +11,16 @@
 [X] append function results into messages with role set to user and parts as function_responses
 [X] print response.text and exit ones theres no more responses
 [X] exit(1) if no responses after max 20 iterations
-[] fix bug: specific files are not being read properly. 'None' is constantly retured.
+[X] fix bug: specific files are not being read properly. 'None' is constantly retured.
+    -  bug was located in get_file_content
 
 **functions/get_files_info:**
 [X] fix bug "pkg" is not a directory
 [X] fix directory content being printed
 [X] Fix error printed no matter what directory is accessed
+
+**functions/get_file_content:**
+[X] bug: return strings and content instead of printing
 
 **functions/write_file:**
 [X] Bug: Fix file generated in wrong directory.
