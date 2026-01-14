@@ -24,37 +24,47 @@ def main():
         raise RuntimeError("Api key not found!")
     client = genai.Client(api_key=api_key)
 
-    response = client.models.generate_content(
-        model=model_name,
-        contents=messages,
-        config=types.GenerateContentConfig(
-            tools=[available_functions], 
-            system_instruction=system_prompt
+    for _ in range(20):
+        response = client.models.generate_content(
+            model=model_name,
+            contents=messages,
+            config=types.GenerateContentConfig(
+                tools=[available_functions], 
+                system_instruction=system_prompt
+            )
         )
-    )
-    if not response.usage_metadata:
-        raise RuntimeError("Response metadata not found.\nApi key potentially not found")
-    prompt_tokens = response.usage_metadata.prompt_token_count
-    response_tokens = response.usage_metadata.candidates_token_count
-    if args.verbose == True:
-        print(f"User prompt: {prompt}")
-        print(f"Prompt tokens: {prompt_tokens}")
-        print(f"Response tokens: {response_tokens}")
-    if response.function_calls is None:
-        print(f"Response:\n{response.text}")
-    else:
-        for function_call in response.function_calls:
+        if response.candidates:
+            for candidate in response.candidates:
+                messages.append(candidate.content)
+
+
+        if not response.usage_metadata:
+            raise RuntimeError("Response metadata not found.\nApi key potentially not found")
+        prompt_tokens = response.usage_metadata.prompt_token_count
+        response_tokens = response.usage_metadata.candidates_token_count
+        if args.verbose == True:
+            print(f"User prompt: {prompt}")
+            print(f"Prompt tokens: {prompt_tokens}")
+            print(f"Response tokens: {response_tokens}")
+        if response.function_calls is None:
+            print(f"Response:\n{response.text}")
+            return
+        else:
             function_results = []
-            function_call_result = call_function(function_call, args.verbose)
-            if function_call_result.parts == None:
-                raise Exception("Error: .parts list is empty")
-            if function_call_result.parts[0].function_response == None:
-                raise Exception("Error: .parts[0].function_response is None")
-            if function_call_result.parts[0].function_response.response == None:
-                raise Exception("Error: .parts[0].function_response.response is None")
-            function_results.append(function_call_result.parts[0])
-            if args.verbose == True:
-                print(f"-> {function_call_result.parts[0].function_response.response}")
+            for function_call in response.function_calls:
+                function_call_result = call_function(function_call, args.verbose)
+                if function_call_result.parts == None:
+                    raise Exception("Error: .parts list is empty")
+                if function_call_result.parts[0].function_response == None:
+                    raise Exception("Error: .parts[0].function_response is None")
+                if function_call_result.parts[0].function_response.response == None:
+                    raise Exception("Error: .parts[0].function_response.response is None")
+                function_results.append(function_call_result.parts[0])
+                if args.verbose == True:
+                    print(f"-> {function_call_result.parts[0].function_response.response}")
+            messages.append(types.Content(role="user", parts=function_results))
+    print(f"After 20 iteration, model couldn't produce a response")
+    exit(1)
             
 
 if __name__ == "__main__":

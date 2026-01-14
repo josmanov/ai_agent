@@ -6,6 +6,12 @@
     - .parts.function_response.response field
 [X] set default working_directory to ./calculator
 [X] if verbose is active print the response of each call
+[X] create loop up until 20 iterations of replies.
+[X] check for each canditate add the content of it into messages list
+[X] append function results into messages with role set to user and parts as function_responses
+[X] print response.text and exit ones theres no more responses
+[X] exit(1) if no responses after max 20 iterations
+[] fix bug: specific files are not being read properly. 'None' is constantly retured.
 
 **functions/get_files_info:**
 [X] fix bug "pkg" is not a directory
